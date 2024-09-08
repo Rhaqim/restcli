@@ -1,5 +1,7 @@
 use clap::Parser;
 
+use crate::cmd;
+
 #[derive(Parser, Debug)]
 #[clap(name = "restcli", version = "0.1.0", author = "Rhaqim")]
 #[clap(about = "Generate RESTful API endpoints")]
@@ -16,7 +18,7 @@ pub struct RestCLIOptions {
     #[clap(
         short,
         long = "curl",
-        default_value = "true",
+        default_value = "false",
         help = "Generate curl requests"
     )]
     pub curl: bool,
@@ -55,22 +57,7 @@ pub struct RestCLIOptions {
 pub fn parse() {
     let opts = Opts::parse();
 
-    let client_selected = vec![
-        opts.options.curl,
-        opts.options.postman,
-        opts.options.rest_client,
-    ]
-    .into_iter()
-    .filter(|&x| x)
-    .count();
-
-    if client_selected != 1 {
-        eprintln!("Error: You must specify exactly one client (curl, postman, or rest-client).");
-        std::process::exit(1);
-    }
-
-    println!("Base URL: {}", opts.options.url);
-    println!("Port: {}", opts.options.port);
+    let url = format!("{}:{}", opts.options.url, opts.options.port);
 
     // Handle input file
     let input_file = opts.options.file;
@@ -79,14 +66,17 @@ pub fn parse() {
     let mut output_file = format! {"{}.sh", opts.options.output};
 
     // Display the selected client and URL/Port details
-    if opts.options.curl {
-        println!("Using curl for the request...");
-    } else if opts.options.postman {
+    if opts.options.postman {
         println!("Using Postman for the request...");
         output_file = format! {"{}.json", opts.options.output};
     } else if opts.options.rest_client {
         println!("Using rest-client for the request...");
         output_file = format! {"{}.http", opts.options.output};
+
+        cmd::rest_client::rest_client_processor(&input_file, &output_file, &url)
+            .expect("Unable to process rest-client");
+    } else {
+        println!("Using curl for the request...");
     }
 
     println!("Using output file: {}", output_file);

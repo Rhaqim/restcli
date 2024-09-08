@@ -8,3 +8,4 @@ clap = { version = "4.5.17", features = ["derive"] }
 clap_derive = { version = "4.0.0-rc.1" }
 tokio = { version = "1.40.0", features = ["full"] }
 mio = "^1.0.1"
+regex = "1.10.6"
