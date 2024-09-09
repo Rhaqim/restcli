@@ -2,6 +2,7 @@ extern crate tokio;
 
 mod cli;
 mod cmd;
+mod lang;
 mod utils;
 
 #[tokio::main]
