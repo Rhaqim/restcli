@@ -14,12 +14,12 @@ pub fn detect_methods_in_file(file_path: &str, url: &str) -> Result<String, std:
         let endpoint = caps.get(2).map_or("", |e| e.as_str());
 
         // Construct the curl command
-        let mut curl_command = format!("\n{} {}{} HTTP/1.1\n", url, method, endpoint);
+        let mut curl_command = format!("\n{} {}{} HTTP/1.1\n", method, url, endpoint);
 
         if method == "POST" || method == "PUT" {
             curl_command = format!(
                 "{} {}{} HTTP/1.1\ncontent-type: application/json\n\n{{}}\n",
-                url, method, endpoint
+                method, url, endpoint
             );
         }
         curl_commands.push(curl_command);
