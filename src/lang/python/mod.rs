@@ -1,6 +1,35 @@
+pub mod flask;
+pub mod django;
+
+use std::collections::HashMap;
+
 use regex::Regex;
 
+pub use flask::flask_method_endpoints;
+
 use crate::utils;
+
+pub fn process(input_file: &str) -> Result<HashMap<String, String>, String> {
+    let framework = detect_framework(&input_file);
+
+    match framework.as_str() {
+        "flask" => {
+            let methods = flask_method_endpoints(input_file);
+            Ok(methods)
+        }
+        _ => Err("Framework not supported".to_string()),
+    }
+}
+
+pub fn detect_framework(file_path: &str) -> String {
+    let content = utils::read_file(file_path).expect("Unable to read file");
+
+    if content.contains("Flask") {
+        return "flask".to_string();
+    }
+
+    "unknown".to_string()
+}
 
 /// Python file
 /// Flask framework

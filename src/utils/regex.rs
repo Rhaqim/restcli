@@ -2,10 +2,17 @@ use std::collections::HashMap;
 
 use regex::Regex;
 
-pub fn method_endpoints(re: Regex, content: &str) -> HashMap<String, String> {
+pub fn method_endpoints(re: Regex, content: &str, flip: bool) -> HashMap<String, String> {
     let mut methods = HashMap::new();
 
     for caps in re.captures_iter(&content) {
+        if flip {
+            let endpoint = caps.get(1).map_or("", |e| e.as_str());
+            let method = caps.get(2).map_or("", |m| m.as_str());
+
+            methods.insert(method.to_string(), endpoint.to_string());
+            continue;
+        }
         let method = caps.get(1).map_or("", |m| m.as_str());
         let endpoint = caps.get(2).map_or("", |e| e.as_str());
 
@@ -28,9 +35,10 @@ mod test {
             r.PUT("/ping", ping)
         "#;
 
-        let re = Regex::new(r#"\b(r\.POST|r\.GET|r\.DELETE|r\.PATCH|r\.PUT)\s*\(\s*\"([^\"]+)\""#).unwrap();
+        let re = Regex::new(r#"\b(r\.POST|r\.GET|r\.DELETE|r\.PATCH|r\.PUT)\s*\(\s*\"([^\"]+)\""#)
+            .unwrap();
 
-        let methods = super::method_endpoints(re, content);
+        let methods = super::method_endpoints(re, content, false);
 
         assert_eq!(methods.get("r.GET").unwrap(), "/ping");
         assert_eq!(methods.get("r.POST").unwrap(), "/ping");

@@ -9,7 +9,7 @@ pub fn gin_method_endpoints(file_path: &str) -> HashMap<String, String> {
 
     let re = Regex::new(r#"\b(POST|GET|DELETE|PATCH|PUT)\s*\(\s*\"([^\"]+)\""#).unwrap();
 
-    utils::method_endpoints(re, &content)
+    utils::method_endpoints(re, &content, false)
 }
 
 pub fn detect_framework(file_path: &str) -> String {

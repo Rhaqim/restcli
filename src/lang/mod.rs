@@ -6,6 +6,7 @@ pub mod python;
 pub mod rust;
 
 use golang::process as go_process;
+use python::process as py_process;
 
 use crate::utils::file::get_file_extension;
 
@@ -20,6 +21,9 @@ pub fn process(input_file: &str) -> HashMap<String, String> {
     match extension {
         "go" => {
             input_content = go_process(input_file).unwrap();
+        }
+        "py" => {
+            input_content = py_process(input_file).unwrap();
         }
         _ => {
             eprintln!("File extension not supported, supported extensions are: go, rs, py");
