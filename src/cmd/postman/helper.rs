@@ -10,9 +10,9 @@ pub fn base_postman_export_json(name: Option<&str>, schema: Option<&str>, item: 
     "info": {{
         "_postman_id": "{}",
         "name": "{}",
-        "schema": "{}",
+        "schema": "{}"
     }},
-    "item": ["{}"]
+    "item": [{}]
 }}"#,
         Uuid::new_v4().to_string(),
         name,
@@ -25,7 +25,7 @@ pub fn item_postman_export_json(name: &str, item: &str) -> String {
     format!(
         r#"{{
     "name": "{}",
-    "item": ["{}"]
+    "item": [{}]
 }}"#,
         name, item
     )

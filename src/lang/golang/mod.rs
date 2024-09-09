@@ -1,12 +1,25 @@
 pub mod gin;
 
-pub use gin::gin_method_endpoints;
-
 use std::collections::HashMap;
 
 use regex::Regex;
 
+pub use gin::{detect_framework, gin_method_endpoints};
+
 use crate::utils;
+
+pub fn process(input_file: &str) -> Result<HashMap<String, String>, String> {
+    let framework = detect_framework(&input_file);
+
+    match framework.as_str() {
+        "gin" => {
+            let methods = gin_method_endpoints(input_file);
+            Ok(methods)
+        }
+        _ => Err("Framework not supported".to_string()),
+
+    }
+}
 
 /// Golang files
 /// Gin framework
