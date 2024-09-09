@@ -1,3 +1,3 @@
-pub mod parse_files;
+pub mod file;
 
-pub use parse_files::{write_file, detect_methods_in_file};
+pub use file::{read_file, write_file};

@@ -8,7 +8,9 @@ pub fn parse() {
     let opts = Opts::parse();
 
     let url = format!("{}:{}", opts.options.url.clone(), opts.options.port.clone());
+    
     let input_file = opts.options.file.clone();
+
     let mut output_file = format! {"{}.sh", opts.options.output.clone()};
 
     if opts.options.postman {

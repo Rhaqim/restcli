@@ -9,3 +9,11 @@ clap_derive = { version = "4.0.0-rc.1" }
 tokio = { version = "1.40.0", features = ["full"] }
 mio = "^1.0.1"
 regex = "1.10.6"
+
+[dependencies.uuid]
+version = "1.10.0"
+features = [
+    "v4",                # Lets you generate random UUIDs
+    "fast-rng",          # Use a faster (but still sufficiently random) RNG
+    "macro-diagnostics", # Enable better diagnostics for compile-time UUIDs
+]

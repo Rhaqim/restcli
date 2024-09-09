@@ -1,20 +1,8 @@
-use std::{fs::File, io::Read};
-
+use crate::utils;
 use regex::Regex;
 
-fn read_file(file: &str) -> Result<String, std::io::Error> {
-    let mut file = File::open(file)?;
-    let mut contents = String::new();
-    file.read_to_string(&mut contents)?;
-    Ok(contents)
-}
-
-pub fn write_file(file: &str, content: &str) -> Result<(), std::io::Error> {
-    std::fs::write(file, content)
-}
-
 pub fn detect_methods_in_file(file_path: &str, url: &str) -> Result<String, std::io::Error> {
-    let content = read_file(file_path).expect("Unable to read file");
+    let content = utils::read_file(file_path).expect("Unable to read file");
 
     // Update patterns to match method and endpoint
     let re = Regex::new(r#"\b(POST|GET|DELETE|PATCH|PUT)\s*\(\s*\"([^\"]+)\""#).unwrap();

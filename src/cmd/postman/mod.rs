@@ -1,3 +1,5 @@
+pub mod helper;
+
 use super::ClientProcessor;
 
 // PostmanClient struct for Postman specific operations

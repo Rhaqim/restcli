@@ -1,3 +1,7 @@
+pub mod helper;
+
+use helper::detect_methods_in_file;
+
 use crate::utils;
 
 use super::ClientProcessor;
@@ -10,7 +14,7 @@ impl ClientProcessor for RestClient {
         println!("Using input file: {}", input_file);
         println!("Using output file: {}", output_file);
         // Call the actual rest-client processor here
-        let content = utils::detect_methods_in_file(input_file, url);
+        let content = detect_methods_in_file(input_file, url);
 
         match content {
             Ok(content) => {

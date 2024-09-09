@@ -1,0 +1,424 @@
+{
+	"info": {
+		"_postman_id": "5c0c5b8e-5101-4df2-9223-6bb6afb7b50e",
+		"name": "Carekin Backend",
+		"description": "Carekin Django API Backend collection containing the auth, notification, forum, friends, posts... and other collections",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17061476"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Djoser Auth",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlAPI}}/v1/auth",
+							"host": [
+								"{{baseUrlAPI}}"
+							],
+							"path": [
+								"v1",
+								"auth"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Djoser Auth GET",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrlAPI}}/v1/auth",
+									"host": [
+										"{{baseUrlAPI}}"
+									],
+									"path": [
+										"v1",
+										"auth"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Djoser Auth Post",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"name": "Content-Type",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer 12383dcb52d627eabd39e7e88501e96a2sadc55",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"example@gmail.com\",\r\n    \"password\": \"alpine\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlAPI}}/v1/auth/",
+									"host": [
+										"{{baseUrlAPI}}"
+									],
+									"path": [
+										"v1",
+										"auth",
+										""
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Pre-Login Conf",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{authAPI}}/pre-login-configurations",
+							"host": [
+								"{{authAPI}}"
+							],
+							"path": [
+								"pre-login-configurations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initiate Password Reset",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURLAuth}}/password/reset/<uidb64>/<token>/",
+							"host": [
+								"{{baseURLAuth}}"
+							],
+							"path": [
+								"password",
+								"reset",
+								"<uidb64>",
+								"<token>",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Password Reset Complete",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURLAuth}}/reset/complete",
+							"host": [
+								"{{baseURLAuth}}"
+							],
+							"path": [
+								"reset",
+								"complete"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Auth folder with login, logout etc"
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Interests",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{authAPI}}/interests",
+							"host": [
+								"{{authAPI}}"
+							],
+							"path": [
+								"interests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Interests",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{authAPI}}/user-interests",
+							"host": [
+								"{{authAPI}}"
+							],
+							"path": [
+								"user-interests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Blocked User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{authAPI}}/blocked-user",
+							"host": [
+								"{{authAPI}}"
+							],
+							"path": [
+								"blocked-user"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Block User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{authAPI}}/blocked-user/1/block/",
+									"host": [
+										"{{authAPI}}"
+									],
+									"path": [
+										"blocked-user",
+										"1",
+										"block",
+										""
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "UnBlock User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{authAPI}}/blocked-user/1/unblock/",
+									"host": [
+										"{{authAPI}}"
+									],
+									"path": [
+										"blocked-user",
+										"1",
+										"unblock",
+										""
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Friends",
+			"item": [
+				{
+					"name": "Friends",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{friendsAPI}}",
+							"host": [
+								"{{friendsAPI}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Friend Requests",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{friendsAPI}}/requests",
+							"host": [
+								"{{friendsAPI}}"
+							],
+							"path": [
+								"requests"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Forum",
+			"item": [
+				{
+					"name": "Forums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{forumAPI}}",
+							"host": [
+								"{{forumAPI}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Moods",
+					"item": [
+						{
+							"name": "Moods",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrlAPI}}/v1/moods",
+									"host": [
+										"{{baseUrlAPI}}"
+									],
+									"path": [
+										"v1",
+										"moods"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Posts",
+					"item": [
+						{
+							"name": "Posts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrlAPI}}/v1/posts",
+									"host": [
+										"{{baseUrlAPI}}"
+									],
+									"path": [
+										"v1",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Comments",
+					"item": [
+						{
+							"name": "Comments",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrlAPI}}/v1/comments",
+									"host": [
+										"{{baseUrlAPI}}"
+									],
+									"path": [
+										"v1",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Reactions",
+					"item": [
+						{
+							"name": "Reactions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrlAPI}}/v1/reactions",
+									"host": [
+										"{{baseUrlAPI}}"
+									],
+									"path": [
+										"v1",
+										"reactions"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Notification",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

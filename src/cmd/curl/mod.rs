@@ -1,3 +1,5 @@
+pub mod helper;
+
 use super::ClientProcessor;
 
 // CurlClient struct for curl specific operations
