@@ -61,7 +61,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer 12383dcb52d627eabd39e7e88501e96a2sadc55",
+										"value": "Bearer token",
 										"type": "text"
 									}
 								],
