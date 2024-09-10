@@ -4,7 +4,7 @@ use super::ClientProcessor;
 
 use crate::lang::process;
 
-use crate::utils::file::write_file;
+use crate::utils::write_file;
 
 // CurlClient struct for curl specific operations
 pub struct CurlClient;

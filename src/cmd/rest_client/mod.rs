@@ -3,7 +3,7 @@ pub mod helper;
 use super::ClientProcessor;
 
 use crate::lang::process;
-use crate::utils::file::write_file;
+use crate::utils::write_file;
 
 // RestClient struct for rest-client specific operations
 pub struct RestClient;

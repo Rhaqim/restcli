@@ -8,7 +8,7 @@ use helper::{
 };
 
 use crate::lang::process;
-use crate::utils::file::write_file;
+use crate::utils::write_file;
 
 // PostmanClient struct for Postman specific operations
 pub struct PostmanClient;
