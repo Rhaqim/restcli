@@ -1,12 +1,11 @@
 # Rest CLI endpoint Generator
 
-This is a simple CLI tool to generate REST API endpoints for a given resource. It is written in Rust and uses the [clap](https://docs.rs/clap/4.5.17/clap/) library for parsing command line arguments.
+This is a simple CLI tool to generate REST API endpoints from defined routes in Python, Rust, Golang and JavaScript files.
 
 ## Features
 
-- Generate REST API endpoints for Python, Rust, Golang and JavaScript files.
-- Generate endpoints for a given resource.
-- Generate endpoints for a given resource with a given base path.
+- Generate REST API endpoints for Postman collection, VSCode REST Client, and curl (HTTPie).
+- Generate REST API endpoints for Python, Rust, Golang, and JavaScript.
 
 ## Installation
 
@@ -16,50 +15,56 @@ To install the CLI tool, you can use the following command:
 cargo install --path .
 ```
 
-## Usage
+## Flags
 
-To generate REST API endpoints for a given resource, you can use the following command:
+- `--help` - Display help information.
+- `-p`, `--postman` - Generate Postman collection.
+- `r`, `--rest-client` - Generate VSCode REST Client.
+- `-c`, `--curl` - Generate curl commands.
+- `url` - The base URL for the REST API. Default is `http://localhost`.
+- `port` - The port number for the REST API. Default is `8080`.
+- `-o`, `--output` - The output file for the generated REST API endpoints. Default is `requests`.
 
-```bash
-rest-cli-generator --resource <resource_name>
-```
+## Supported Languages and Frameworks
 
-To generate REST API endpoints for a given resource with a given base path, you can use the following command:
-
-```bash
-rest-cli-generator --resource <resource_name> --base-path <base_path>
-```
+- Python (Flask)
+- Rust (Actix Web)
+- Golang (Gin)
+- JavaScript (Express)
 
 ## Example
 
-To generate REST API endpoints for a resource named `user`, you can use the following command:
+Here is an example of a Python file with defined routes:
 
-```bash
-rest-cli-generator --resource user
+```python
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+@app.route('/api/v1/hello', methods=['GET'])
+def hello():
+    return jsonify({'message': 'Hello, World!'})
+
+@app.route('/api/v1/greet', methods=['POST'])
+def greet():
+    data = request.get_json()
+    name = data.get('name')
+    return jsonify({'message': f'Hello, {name}!'})
+
+if __name__ == '__main__':
+    app.run(port=8080)
 ```
 
-This will generate the following output:
+You can generate REST API endpoints for this Python file using the following command:
 
 ```bash
-GET /users
-GET /users/:id
-POST /users
-PUT /users/:id
-DELETE /users/:id
+rest-cli -p -r -c --url http://localhost --port 8080 app.py
 ```
 
-To generate REST API endpoints for a resource named `user` with a base path of `/api`, you can use the following command:
+This will generate the following files:
 
-```bash
-rest-cli-generator --resource user --base-path /api
-```
+- `requests.postman_collection.json` - Postman collection.
+- `requests.http` - VSCode REST Client.
+- `requests.sh` - curl commands.
 
-This will generate the following output:
-
-```bash
-GET /api/users
-GET /api/users/:id
-POST /api/users
-PUT /api/users/:id
-DELETE /api/users/:id
-```
+You can import the Postman collection into Postman, open the VSCode REST Client file in VSCode, and run the curl commands in your terminal.

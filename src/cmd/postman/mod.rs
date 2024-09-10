@@ -24,14 +24,17 @@ impl ClientProcessor for PostmanClient {
 
         for (method, endpoint) in input_content.iter() {
             let header = header_postman_export_json("content-type", "application/json");
+
+            let split_endpoint: Vec<&str> = endpoint.split("/").collect();
             let url = url_postman_export_json(
-                &endpoint,
-                "localhost",
                 format!("{}{}", url, endpoint).as_str(),
+                "localhost",
+                split_endpoint,
             );
             let request = request_postman_export_json(&method, &url, &header);
             let inner_item = inner_item_postman_export_json(&endpoint, &request);
-            let item = item_postman_export_json("Request", &inner_item);
+            let item =
+                item_postman_export_json(format!("{} request", &endpoint).as_str(), &inner_item);
             items.push(item);
         }
 

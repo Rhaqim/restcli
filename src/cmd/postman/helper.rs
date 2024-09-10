@@ -53,12 +53,20 @@ pub fn request_postman_export_json(method: &str, url: &str, header: &str) -> Str
     )
 }
 
-pub fn url_postman_export_json(raw: &str, host: &str, path: &str) -> String {
+pub fn url_postman_export_json(raw: &str, host: &str, path: Vec<&str>) -> String {
+    // convert path to json array
+    let path = path
+        .iter()
+        .filter(|x| !x.is_empty()) // Ignore empty strings
+        .map(|x| format!(r#""{}""#, x))
+        .collect::<Vec<String>>()
+        .join(",");
+
     format!(
         r#"{{
     "raw": "{}",
     "host": ["{}"],
-    "path": ["{}"]
+    "path": [{}]
 }}"#,
         raw, host, path
     )
@@ -75,17 +83,17 @@ pub fn header_postman_export_json(key: &str, value: &str) -> String {
     )
 }
 
-pub fn body_postman_export_json(mode: &str, raw: &str) -> String {
-    format!(
-        r#"{{
-    "mode": "{}",
-    "raw": "{}"
-    "options": {{
-        "raw": {{
-            "language": "json"
-        }}
-    }}
-}}"#,
-        mode, raw
-    )
-}
+// pub fn body_postman_export_json(mode: &str, raw: &str) -> String {
+//     format!(
+//         r#"{{
+//     "mode": "{}",
+//     "raw": "{}"
+//     "options": {{
+//         "raw": {{
+//             "language": "json"
+//         }}
+//     }}
+// }}"#,
+//         mode, raw
+//     )
+// }
