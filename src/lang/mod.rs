@@ -19,18 +19,16 @@ pub fn process(input_files: &Vec<String>) -> HashMap<String, String> {
     for input_file in input_files {
         let extension = get_file_extension(input_file).unwrap();
 
-        match extension {
-            "go" => {
-                input_content = go_process(input_file).unwrap();
-            }
-            "py" => {
-                input_content = py_process(input_file).unwrap();
-            }
+        let file_content = match extension {
+            "go" => go_process(input_file).unwrap(),
+            "py" => py_process(input_file).unwrap(),
             _ => {
                 eprintln!("File extension not supported, supported extensions are: go, rs, py");
                 std::process::exit(1);
             }
-        }
+        };
+
+        input_content.extend(file_content);
     }
 
     input_content

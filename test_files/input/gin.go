@@ -26,7 +26,7 @@ func main() {
 		c.JSON(http.StatusOK, data)
 	}
 
-	r.POST("/post", func(c *gin.Context) {
+	r.DELETE("/post", func(c *gin.Context) {
 		client := &http.Client{}
 		req, _ := http.NewRequest("POST", "https://jsonplaceholder.typicode.com/posts", nil)
 		resp, _ := client.Do(req)
