@@ -19,11 +19,11 @@ impl ClientProcessor for CurlClient {
 
         for (method, endpoint) in input_content.iter() {
             for e in endpoint {
-                let mut curl_command = format!("\ncurl -X {} {}{}\n", method, url, e);
+                let mut curl_command = format!("\ncurl -X {} {}{}", method, url, e);
 
                 if method == "POST" || method == "PUT" {
                     curl_command = format!(
-                        "curl -X {} {}{} -H \"content-type: application/json\" -d '{{}}'\n",
+                        "curl -X {} {}{} -H \"content-type: application/json\" -d '{{}}'",
                         method, url, e
                     );
                 }
@@ -32,7 +32,7 @@ impl ClientProcessor for CurlClient {
             }
         }
 
-        let result = items.join("\n###\n");
+        let result = items.join("\n");
 
         write_file(output_file, &result).expect("Unable to process rest-client");
     }
