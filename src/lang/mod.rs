@@ -13,21 +13,23 @@ use crate::utils::file::get_file_extension;
 pub const COMMON_REGEX: &str = r"(?P<method>GET|POST|PUT|DELETE|PATCH|HEAD|OPTIONS|CONNECT|TRACE)\s+(?P<path>\/[a-zA-Z0-9\/\-\_]+)";
 pub const COMMON_REGEX_2: &str = r"\b(?i)(POST|GET|DELETE|PATCH|PUT)\b.*?(/[\w/]*)";
 
-pub fn process(input_file: &str) -> HashMap<String, String> {
-    let extension = get_file_extension(input_file).unwrap();
-
+pub fn process(input_files: &Vec<String>) -> HashMap<String, String> {
     let mut input_content = HashMap::new();
 
-    match extension {
-        "go" => {
-            input_content = go_process(input_file).unwrap();
-        }
-        "py" => {
-            input_content = py_process(input_file).unwrap();
-        }
-        _ => {
-            eprintln!("File extension not supported, supported extensions are: go, rs, py");
-            std::process::exit(1);
+    for input_file in input_files {
+        let extension = get_file_extension(input_file).unwrap();
+
+        match extension {
+            "go" => {
+                input_content = go_process(input_file).unwrap();
+            }
+            "py" => {
+                input_content = py_process(input_file).unwrap();
+            }
+            _ => {
+                eprintln!("File extension not supported, supported extensions are: go, rs, py");
+                std::process::exit(1);
+            }
         }
     }
 

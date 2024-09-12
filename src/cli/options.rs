@@ -2,8 +2,8 @@ use clap::Parser;
 
 #[derive(Parser, Debug, Clone)]
 pub struct RestCLIOptions {
-    #[clap(help = "Input file containing the request details", required = true)]
-    pub file: String,
+    #[clap(help = "Input files containing the request details", required = true)]
+    pub file: Vec<String>,
 
     #[clap(
         short,

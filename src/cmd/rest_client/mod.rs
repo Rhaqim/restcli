@@ -8,12 +8,12 @@ use crate::utils::write_file;
 // RestClient struct for rest-client specific operations
 pub struct RestClient;
 impl ClientProcessor for RestClient {
-    fn process_request(&self, input_file: &str, output_file: &str, url: &str) {
+    fn process_request(&self, input_files: &Vec<String>, output_file: &str, url: &str) {
         println!("Using rest-client for the request...");
-        println!("Using input file: {}", input_file);
+        println!("Using input file: {}", input_files.join(", "));
         println!("Using output file: {}", output_file);
 
-        let input_content = process(input_file);
+        let input_content = process(input_files);
 
         let mut items = Vec::new();
 

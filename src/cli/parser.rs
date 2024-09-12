@@ -8,10 +8,10 @@ use crate::utils::is_supported_extension;
 pub fn parse() {
     let opts = Opts::parse();
 
-    let input_file = opts.options.file.clone();
+    let input_files = opts.options.file.clone();
 
     // check if file is supported
-    if !is_supported_extension(&input_file) {
+    if !is_supported_extension(&input_files) {
         eprintln!("File extension not supported, supported extensions are: go, rs, py");
         std::process::exit(1);
     }
@@ -27,5 +27,5 @@ pub fn parse() {
     }
 
     let client = cmd::get_client(&opts);
-    client.process_request(&input_file, &output_file, &url);
+    client.process_request(&input_files, &output_file, &url);
 }

@@ -9,7 +9,7 @@ pub use rest_client::RestClient;
 use crate::cli;
 
 pub trait ClientProcessor {
-    fn process_request(&self, input_file: &str, output_file: &str, url: &str);
+    fn process_request(&self, input_file: &Vec<String>, output_file: &str, url: &str);
 }
 
 // Factory function to select the appropriate client based on options

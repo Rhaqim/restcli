@@ -19,10 +19,14 @@ pub fn get_file_extension(file: &str) -> Option<&str> {
         .and_then(std::ffi::OsStr::to_str)
 }
 
-pub fn is_supported_extension(file: &str) -> bool {
-    get_file_extension(file)
-        .map(|ext| SUPPORTED_EXTENSIONS.contains(&ext))
-        .unwrap_or(false)
+pub fn is_supported_extension(file: &Vec<String>) -> bool {
+    for f in file {
+        if !SUPPORTED_EXTENSIONS.contains(&get_file_extension(&f).unwrap_or("")) {
+            return false;
+        }
+    }
+
+    true
 }
 
 mod test {
@@ -34,9 +38,17 @@ mod test {
 
     #[test]
     fn test_is_supported_extension() {
-        assert_eq!(super::is_supported_extension("file.rs"), true);
-        assert_eq!(super::is_supported_extension("file.go"), true);
-        assert_eq!(super::is_supported_extension("file.py"), true);
-        assert_eq!(super::is_supported_extension("file"), false);
+        assert_eq!(
+            super::is_supported_extension(&vec!["file.rs".to_string()]),
+            true
+        );
+        assert_eq!(
+            super::is_supported_extension(&vec!["file.go".to_string(), "file.rs".to_string()]),
+            true
+        );
+        assert_eq!(
+            super::is_supported_extension(&vec!["file".to_string()]),
+            false
+        );
     }
 }
