@@ -57,8 +57,16 @@ if __name__ == '__main__':
 
 You can generate REST API endpoints for this Python file using the following command:
 
+- Single File
+
 ```bash
 rest-cli -p -r -c --url http://localhost --port 8080 app.py
+```
+
+- Multiple Files
+
+```bash
+rest-cli -p -r -c --url http://localhost --port 8080 app1.py app2.py app3.py
 ```
 
 This will generate the following files:
