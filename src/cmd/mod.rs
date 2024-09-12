@@ -13,23 +13,13 @@ pub trait ClientProcessor {
 }
 
 // Factory function to select the appropriate client based on options
-// pub fn get_client(opts: &cli::Opts) -> Box<dyn ClientProcessor> {
-//     if opts.options.postman {
-//         Box::new(PostmanClient)
-//     } else if opts.options.rest_client {
-//         Box::new(RestClient)
-//     } else {
-//         Box::new(CurlClient)
-//     }
-// }
-
 pub fn get_client(opts: &cli::Opts) -> Vec<(Box<dyn ClientProcessor>, String)> {
     let mut clients: Vec<(Box<dyn ClientProcessor>, String)> = Vec::new();
 
     if opts.options.postman {
         clients.push((
             Box::new(PostmanClient),
-            format!("{}.json", opts.options.output),
+            format!("{}.postman_collection.json", opts.options.output),
         ));
     }
 
