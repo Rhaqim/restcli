@@ -13,7 +13,7 @@ use crate::utils::file::get_file_extension;
 pub const COMMON_REGEX: &str = r"(?P<method>GET|POST|PUT|DELETE|PATCH|HEAD|OPTIONS|CONNECT|TRACE)\s+(?P<path>\/[a-zA-Z0-9\/\-\_]+)";
 pub const COMMON_REGEX_2: &str = r"\b(?i)(POST|GET|DELETE|PATCH|PUT)\b.*?(/[\w/]*)";
 
-pub fn process(input_files: &Vec<String>) -> HashMap<String, String> {
+pub fn process(input_files: &Vec<String>) -> HashMap<String, Vec<String>> {
     let mut input_content = HashMap::new();
 
     for input_file in input_files {

@@ -18,16 +18,18 @@ impl ClientProcessor for CurlClient {
         let mut items = Vec::new();
 
         for (method, endpoint) in input_content.iter() {
-            let mut curl_command = format!("\ncurl -X {} {}{}\n", method, url, endpoint);
+            for e in endpoint {
+                let mut curl_command = format!("\ncurl -X {} {}{}\n", method, url, e);
 
-            if method == "POST" || method == "PUT" {
-                curl_command = format!(
-                    "curl -X {} {}{} -H \"content-type: application/json\" -d '{{}}'\n",
-                    method, url, endpoint
-                );
+                if method == "POST" || method == "PUT" {
+                    curl_command = format!(
+                        "curl -X {} {}{} -H \"content-type: application/json\" -d '{{}}'\n",
+                        method, url, e
+                    );
+                }
+
+                items.push(curl_command);
             }
-
-            items.push(curl_command);
         }
 
         let result = items.join("\n###\n");

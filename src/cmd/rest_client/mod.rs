@@ -18,16 +18,18 @@ impl ClientProcessor for RestClient {
         let mut items = Vec::new();
 
         for (method, endpoint) in input_content.iter() {
-            let mut curl_command = format!("\n{} {}{} HTTP/1.1\n", method, url, endpoint);
+            for e in endpoint {
+                let mut curl_command = format!("\n{} {}{} HTTP/1.1\n", method, url, e);
 
-            if method == "POST" || method == "PUT" {
-                curl_command = format!(
-                    "{} {}{} HTTP/1.1\ncontent-type: application/json\n\n{{}}\n",
-                    method, url, endpoint
-                );
+                if method == "POST" || method == "PUT" {
+                    curl_command = format!(
+                        "{} {}{} HTTP/1.1\ncontent-type: application/json\n\n{{}}\n",
+                        method, url, e
+                    );
+                }
+
+                items.push(curl_command);
             }
-
-            items.push(curl_command);
         }
 
         let result = items.join("\n###\n");

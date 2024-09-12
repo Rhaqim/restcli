@@ -6,7 +6,7 @@ pub use gin::gin_method_endpoints;
 
 use crate::utils;
 
-pub fn process(input_file: &str) -> Result<HashMap<String, String>, String> {
+pub fn process(input_file: &str) -> Result<HashMap<String, Vec<String>>, String> {
     let framework = detect_framework(&input_file);
 
     let methods = match framework.as_str() {

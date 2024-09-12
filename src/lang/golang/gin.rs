@@ -12,7 +12,7 @@ use crate::utils;
 /// regular http
 /// method is in the form of http.MethodPost, http.MethodGet, http.MethodDelete, http.MethodPatch, http.MethodPut
 /// regular http Regex::new(r#"\b(http\.MethodPost|http\.MethodGet|http\.MethodDelete|http\.MethodPatch|http\.MethodPut)\s*\(\s*\"([^\"]+)\""#).unwrap();
-pub fn gin_method_endpoints(file_path: &str) -> HashMap<String, String> {
+pub fn gin_method_endpoints(file_path: &str) -> HashMap<String, Vec<String>> {
     let content = utils::read_file(file_path).expect("Unable to read file");
 
     let re = Regex::new(r#"\b(POST|GET|DELETE|PATCH|PUT)\s*\(\s*\"([^\"]+)\""#).unwrap();
