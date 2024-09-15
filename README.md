@@ -23,6 +23,7 @@ cargo install --path .
 - `-c`, `--curl` - Generate curl commands.
 - `url` - The base URL for the REST API. Default is `http://localhost`.
 - `port` - The port number for the REST API. Default is `8080`.
+- `a`, `--append` - Append the generated REST API endpoints to an existing file.
 - `-o`, `--output` - The output file for the generated REST API endpoints. Default is `requests`.
 
 ## Supported Languages and Frameworks
