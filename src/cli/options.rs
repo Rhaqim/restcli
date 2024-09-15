@@ -37,6 +37,14 @@ pub struct RestCLIOptions {
 
     #[clap(
         short,
+        long = "apppend",
+        default_value = "false",
+        help = "Append to the output file"
+    )]
+    pub append: bool,
+
+    #[clap(
+        short,
         long = "output",
         default_value = "request",
         help = "Output file name"

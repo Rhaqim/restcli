@@ -13,7 +13,13 @@ use crate::utils::write_file;
 // PostmanClient struct for Postman specific operations
 pub struct PostmanClient;
 impl ClientProcessor for PostmanClient {
-    fn process_request(&self, input_files: &Vec<String>, output_file: &str, url: &str) {
+    fn process_request(
+        &self,
+        input_files: &Vec<String>,
+        url: &str,
+        output_file: &str,
+        append: bool,
+    ) {
         println!("Using Postman for the request...");
         println!("Using input file: {}", input_files.join(", "));
         println!("Using output file: {}", output_file);
@@ -44,6 +50,6 @@ impl ClientProcessor for PostmanClient {
 
         let postman_json = base_postman_export_json(Some("New Collection"), None, &item);
 
-        write_file(output_file, &postman_json).unwrap();
+        write_file(output_file, &postman_json, append).unwrap();
     }
 }

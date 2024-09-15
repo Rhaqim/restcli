@@ -9,7 +9,13 @@ use crate::utils::write_file;
 // CurlClient struct for curl specific operations
 pub struct CurlClient;
 impl ClientProcessor for CurlClient {
-    fn process_request(&self, input_files: &Vec<String>, output_file: &str, url: &str) {
+    fn process_request(
+        &self,
+        input_files: &Vec<String>,
+        url: &str,
+        output_file: &str,
+        append: bool,
+    ) {
         println!("Using curl for the request...");
         println!("Using output file: {}", output_file);
 
@@ -34,6 +40,6 @@ impl ClientProcessor for CurlClient {
 
         let result = items.join("\n");
 
-        write_file(output_file, &result).expect("Unable to process rest-client");
+        write_file(output_file, &result, append).expect("Unable to process rest-client");
     }
 }

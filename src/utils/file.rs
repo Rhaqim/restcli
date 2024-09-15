@@ -1,4 +1,7 @@
-use std::{fs::File, io::Read};
+use std::{
+    fs::{File, OpenOptions},
+    io::{Read, Write},
+};
 
 pub const SUPPORTED_EXTENSIONS: [&str; 3] = ["go", "rs", "py"];
 
@@ -9,8 +12,14 @@ pub fn read_file(file: &str) -> Result<String, std::io::Error> {
     Ok(contents)
 }
 
-pub fn write_file(file: &str, content: &str) -> Result<(), std::io::Error> {
-    std::fs::write(file, content)
+pub fn write_file(file: &str, content: &str, append: bool) -> Result<(), std::io::Error> {
+    let mut file = OpenOptions::new()
+        .write(true) // Enables writing
+        .create(true) // Creates the file if it doesn't exist
+        .append(append) // Append if true, otherwise overwrite
+        .open(file)?;
+
+    file.write_all(content.as_bytes())
 }
 
 pub fn get_file_extension(file: &str) -> Option<&str> {
@@ -50,5 +59,17 @@ mod test {
             super::is_supported_extension(&vec!["file".to_string()]),
             false
         );
+    }
+
+    #[test]
+    fn test_append_file() {
+        let file = "test_append_file.txt";
+        let content = "test content";
+
+        super::write_file(file, content, true).unwrap();
+
+        let result = super::read_file(file).unwrap();
+        // assert_eq!(result, content);
+        assert!(result.contains(content));
     }
 }

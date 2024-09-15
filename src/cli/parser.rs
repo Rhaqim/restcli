@@ -21,6 +21,6 @@ pub fn parse() {
     let client = cmd::get_client(&opts);
 
     for (c, output_file) in client {
-        c.process_request(&input_files, &output_file, &url);
+        c.process_request(&input_files, &url, &output_file, opts.options.append);
     }
 }
