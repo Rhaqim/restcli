@@ -6,8 +6,8 @@ pub mod python;
 // pub mod rust;
 
 use golang::process as go_process;
-use python::process as py_process;
 use javascript::process as js_process;
+use python::process as py_process;
 
 use crate::utils::file::get_file_extension;
 
