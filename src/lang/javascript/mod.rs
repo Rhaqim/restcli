@@ -23,7 +23,7 @@ pub fn process(input_file: &str) -> Result<HashMap<String, Vec<String>>, String>
 pub fn detect_framework(file_path: &str) -> String {
     let content = utils::read_file(file_path).expect("Unable to read file");
 
-    if content.contains("app.get") {
+    if content.contains("express") {
         return "express".to_string();
     } else if content.contains("function GET") {
         return "nextjs".to_string();

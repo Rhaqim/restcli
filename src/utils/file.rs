@@ -3,7 +3,7 @@ use std::{
     io::{Read, Write},
 };
 
-pub const SUPPORTED_EXTENSIONS: [&str; 3] = ["go", "rs", "py"];
+pub const SUPPORTED_EXTENSIONS: [&str; 4] = ["go", "rs", "py", "js"];
 
 pub fn read_file(file: &str) -> Result<String, std::io::Error> {
     let mut file = File::open(file)?;
