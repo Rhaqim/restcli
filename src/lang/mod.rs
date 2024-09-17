@@ -1,12 +1,13 @@
 use std::collections::HashMap;
 
 pub mod golang;
-// pub mod javascript;
+pub mod javascript;
 pub mod python;
 // pub mod rust;
 
 use golang::process as go_process;
 use python::process as py_process;
+use javascript::process as js_process;
 
 use crate::utils::file::get_file_extension;
 
@@ -22,6 +23,7 @@ pub fn process(input_files: &Vec<String>) -> HashMap<String, Vec<String>> {
         let file_content = match extension {
             "go" => go_process(input_file).unwrap(),
             "py" => py_process(input_file).unwrap(),
+            "js" => js_process(input_file).unwrap(),
             _ => {
                 eprintln!("File extension not supported, supported extensions are: go, rs, py");
                 std::process::exit(1);
